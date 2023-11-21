@@ -1,6 +1,9 @@
 <script setup>
 import AboutView from './AboutView.vue'
+import NavBar from '../components/NavBar.vue';
 import { ref, onMounted, onUnmounted } from 'vue'
+import ExpView from './ExpView.vue';
+import ContactView from './ContactView.vue';
 
 const viewPortCal = (_viewport) => {
   if (_viewport < 600) {
@@ -14,6 +17,7 @@ const viewPortCal = (_viewport) => {
   }
 }
 
+const navbarRef = ref(null);
 const viewport = ref(window.innerWidth)
 const windowHeight = ref(window.innerHeight)
 
@@ -27,13 +31,23 @@ const scrollHandler = () => {
   const scrollY = window.scrollY
   imgPosition.value = `translate(${viewPortCal(viewport.value)}px,${scrollY * 0.7}px)`
   titlePosition.value = `translateY(${scrollY * 0.7}px)`
+
+  // Get the element with the ID 'about'
+  const aboutSection = document.getElementById('about');
+
+  // Check if the user has scrolled to the 'about' section
+  if (aboutSection && scrollY >= aboutSection.offsetTop) {
+    navbarRef.value.$el.classList.add('sticky-nav');
+  } else {
+    navbarRef.value.$el.classList.remove('sticky-nav');
+  }
 }
 const handleResize = () => {
   viewport.value = window.innerWidth
   imgPosition.value = `translate(${viewPortCal(viewport.value)}px,${scrollY * 0.7}px)`
   windowHeight.value = window.innerHeight
 }
-const scrollToAbout = (navId) => {
+const scrollToId = (navId) => {
   const aboutSection = document.getElementById(navId)
   if (aboutSection) {
     window.scrollTo({
@@ -55,7 +69,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="w-full text-center h-screen bg-banner overflow-hidden">
+  <div id="home" class="w-full text-center h-screen bg-banner overflow-hidden">
     <div class="grid grid-cols-2 gap-4 content-end h-screen">
       <div class="h-screen items-end flex w-[40vw] min-w-[600px]">
         <img
@@ -80,12 +94,15 @@ onUnmounted(() => {
           class="hover:cursor-pointer absolute bottom-[8vw] right-[5vw] scroll-button"
           src="/icons/down-arrow.png"
           alt="down"
-          @click="scrollToAbout('about')"
+          @click="scrollToId('about')"
         />
       </div>
     </div>
   </div>
+  <NavBar ref="navbarRef" />
   <AboutView />
+  <ExpView/>
+  <ContactView/>
 </template>
 
 <style scoped>
@@ -133,20 +150,27 @@ img {
   font-family: 'Lato', sans-serif;
 }
 .scroll-button {
-  transform: translate(0%, 20%);
-  animation: fade_move_down 3s ease-in-out infinite;
+  opacity: 0;
+  transform: translate(0%, 0%);
+  animation: fade_move_down 3s ease-out infinite;
+}
+.sticky-nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000; /* Adjust the z-index as needed */
 }
 
 @keyframes fade_move_down {
   0% {
-    transform: translate(0, 20%);
+    transform: translate(0, 0%);
     opacity: 0;
   }
   50% {
     opacity: 1;
   }
   100% {
-    transform: translate(0, 60%);
+    transform: translate(0, 50%);
     opacity: 0;
   }
 }
