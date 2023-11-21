@@ -92,9 +92,14 @@ onBeforeUnmount(() => {
     font-size: 12px;
     font-weight: 600;
     color: #1d1e22;
-    font-size: 1rem;
+    
 }
 
+@media screen and (min-width: 800px) {
+    .et-hero-tab {
+        font-size: 1rem; /* Keep the original font size for screens above 800px */
+    }
+}
 .et-hero-tab-slider {
     position: absolute;
     bottom: 0;
