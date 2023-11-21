@@ -29,6 +29,7 @@ const handleResize = () => {
   viewport.value = window.innerWidth
   imgPosition.value = `translate(${viewPortCal(viewport.value)}px,${scrollY * 0.7}px)`
   windowHegith.value = window.innerHeight
+  console.log("H : ", windowHegith.value);
   
 }
 
@@ -48,7 +49,7 @@ onUnmounted(() => {
   <div class="w-full text-center h-screen bg-banner overflow-hidden">
     <div class="grid grid-cols-2 gap-4 content-end h-screen">
       <div class="h-screen items-end flex w-[600px]">
-        <img :style="{ transform: imgPosition,}" :class="`-mb-[${windowHegith>500? 0: 300}px]`"  src="/images/pro-photo.png" alt="pp"  />
+        <img :style="{ transform: imgPosition,}" :class="`-mb-[${windowHegith<650? '300px': '0px'}]`"  src="/images/pro-photo.png" alt="pp"  />
       </div>
       <div :style="{ transform: titlePostion }" class="text-right h-screen container pr-5 sm:pr-10">
         <span class="blue-title">Hi there, my name is</span>
