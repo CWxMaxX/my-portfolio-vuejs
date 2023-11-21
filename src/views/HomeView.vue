@@ -15,21 +15,21 @@ const viewPortCal = (_viewport) => {
 }
 
 const viewport = ref(window.innerWidth)
-const windowHegith = ref(window.innerHeight)
-
+const windowHeight = ref(window.innerHeight)
+console.log("H : ", windowHeight.value<650? '300px': '0px');
 const imgPosition = ref(`translate(${viewPortCal(viewport.value)}px,${0}px)`)
-const titlePostion = ref('translateY(0)')
+const titlePosition = ref('translateY(0)')
 
 const scrollHandler = () => {
   const scrollY = window.scrollY
   imgPosition.value = `translate(${viewPortCal(viewport.value)}px,${ scrollY * 0.7}px)`
-  titlePostion.value = `translateY(${scrollY * 0.7}px)`
+  titlePosition.value = `translateY(${scrollY * 0.7}px)`
 }
 const handleResize = () => {
   viewport.value = window.innerWidth
   imgPosition.value = `translate(${viewPortCal(viewport.value)}px,${scrollY * 0.7}px)`
-  windowHegith.value = window.innerHeight
-  console.log("H : ", windowHegith.value);
+  windowHeight.value = window.innerHeight
+  
   
 }
 
@@ -49,9 +49,9 @@ onUnmounted(() => {
   <div class="w-full text-center h-screen bg-banner overflow-hidden">
     <div class="grid grid-cols-2 gap-4 content-end h-screen">
       <div class="h-screen items-end flex w-[600px]">
-        <img :style="{ transform: imgPosition,}" :class="`-mb-[${windowHegith<650? '300px': '0px'}]`"  src="/images/pro-photo.png" alt="pp"  />
+        <img :style="{ transform: imgPosition,}" :class="windowHeight < 650 ? '-mb-[300px]' : ''" src="/images/pro-photo.png" alt="pp"  />
       </div>
-      <div :style="{ transform: titlePostion }" class="text-right h-screen container pr-5 sm:pr-10">
+      <div :style="{ transform: titlePosition }" class="text-right h-screen container pr-5 sm:pr-10">
         <span class="blue-title">Hi there, my name is</span>
         <span class="white-title-first">Chamith</span>
         <span class="white-title-second">Wijesooriya</span>
@@ -87,7 +87,7 @@ img {
   display: flex;
   flex-direction: column;
   height: 100%;
-  align-items: end;
+  align-items: flex-end;
   justify-content: center;
 }
 .white-title-first {
