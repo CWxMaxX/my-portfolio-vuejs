@@ -90,8 +90,8 @@ onUnmounted(() => {
         <span class="blue-title">UX/UI, Software Engineer</span>
       </div>
         <img
-          style="width: 6vw"
-          class="hover:cursor-pointer absolute bottom-[8vw] right-[5vw] scroll-button"
+         
+          class="hover:cursor-pointer absolute bottom-[20vh] 2xl:w-[6vw] w-[6rem]   right-[5vw] scroll-button"
           src="/icons/down-arrow.png"
           alt="down"
           @click="scrollToId('about')"
@@ -159,6 +159,11 @@ img {
   top: 0;
   width: 100%;
   z-index: 1000; /* Adjust the z-index as needed */
+}
+@media screen and (min-width: 1921px) {
+  .scroll-button{
+    right: 10vw;
+  }
 }
 
 @keyframes fade_move_down {
