@@ -90,8 +90,7 @@ onUnmounted(() => {
         <span class="blue-title">UX/UI, Software Engineer</span>
       </div>
         <img
-         
-          class="hover:cursor-pointer absolute bottom-[20vh] 2xl:w-[6vw] w-[6rem]   right-[5vw] scroll-button"
+          class="hover:cursor-pointer absolute bottom-[12vh] 2xl:w-[6vw] w-[6rem] right-[5vw] scroll-button"
           src="/icons/down-arrow.png"
           alt="down"
           @click="scrollToId('about')"
